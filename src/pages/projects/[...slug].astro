@@ -1,0 +1,250 @@
+---
+import { Image } from 'astro:assets';
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+
+export async function getStaticPaths() {
+	const projects = await getCollection('projects');
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: project,
+	}));
+}
+
+type Props = CollectionEntry<'projects'>;
+
+const project = Astro.props;
+const { Content } = await render(project);
+const { title, description, coverImage, github, site, tech, status } = project.data;
+
+const statusLabel: Record<string, string> = {
+	active: 'Ativo',
+	wip: 'Em desenvolvimento',
+	archived: 'Arquivado',
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead title={`${title} — Lucas Lima`} description={description} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<article>
+				<header class="project-header">
+					<div class="project-meta">
+						<a href="/projects" class="back-link">← Projetos</a>
+						<span class={`status status-${status}`}>{statusLabel[status]}</span>
+					</div>
+
+					<h1>{title}</h1>
+					<p class="project-desc">{description}</p>
+
+					<div class="project-actions">
+						{
+							github && (
+								<a href={github} target="_blank" rel="noopener" class="link-btn">
+									GitHub ↗
+								</a>
+							)
+						}
+						{
+							site && (
+								<a href={site} target="_blank" rel="noopener" class="link-btn link-btn-primary">
+									Ver site ↗
+								</a>
+							)
+						}
+					</div>
+
+					<div class="tech-list">
+						{tech.map((t) => <span class="tech">{t}</span>)}
+					</div>
+				</header>
+
+				{
+					coverImage && (
+						<div class="cover-wrap">
+							<Image src={coverImage} alt={title} width={680} height={400} class="cover-img" />
+						</div>
+					)
+				}
+
+				<div class="prose">
+					<Content />
+				</div>
+
+				<footer class="project-footer">
+					<a href="/projects" class="back-link">← Voltar aos projetos</a>
+				</footer>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.project-header {
+		padding-bottom: 1.75rem;
+	}
+	.project-meta {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+	.back-link {
+		font-size: 0.825rem;
+		color: var(--muted);
+		text-decoration: none;
+		transition: color 0.15s;
+	}
+	.back-link:hover {
+		color: var(--text);
+	}
+	.status {
+		font-size: 0.7rem;
+		padding: 0.15rem 0.5rem;
+		border-radius: 3px;
+		font-weight: 500;
+	}
+	.status-active {
+		background: rgba(74, 222, 128, 0.1);
+		color: #4ade80;
+		border: 1px solid rgba(74, 222, 128, 0.2);
+	}
+	.status-wip {
+		background: rgba(251, 191, 36, 0.1);
+		color: #fbbf24;
+		border: 1px solid rgba(251, 191, 36, 0.2);
+	}
+	.status-archived {
+		background: rgba(107, 107, 107, 0.1);
+		color: var(--muted);
+		border: 1px solid var(--border);
+	}
+	h1 {
+		font-size: 1.875rem;
+		letter-spacing: -0.03em;
+		margin: 0 0 0.75rem;
+		line-height: 1.2;
+	}
+	.project-desc {
+		font-size: 1rem;
+		color: var(--muted);
+		margin: 0 0 1.25rem;
+		line-height: 1.6;
+	}
+	.project-actions {
+		display: flex;
+		gap: 0.75rem;
+		margin-bottom: 1rem;
+		flex-wrap: wrap;
+	}
+	.link-btn {
+		font-size: 0.825rem;
+		padding: 0.4rem 0.9rem;
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		text-decoration: none;
+		color: var(--muted);
+		background: var(--surface);
+		transition: color 0.15s, border-color 0.15s;
+	}
+	.link-btn:hover {
+		color: var(--text);
+		border-color: var(--muted);
+		text-decoration: none;
+	}
+	.link-btn-primary {
+		color: var(--text);
+		border-color: var(--muted);
+	}
+	.tech-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+	}
+	.tech {
+		font-size: 0.775rem;
+		padding: 0.2rem 0.55rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		color: var(--muted);
+	}
+
+	/* Cover image */
+	.cover-wrap {
+		width: 100%;
+		margin: 1.75rem 0;
+		border-radius: 8px;
+		overflow: hidden;
+		border: 1px solid var(--border);
+	}
+	.cover-img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	/* Prose — handles images and videos inside the content */
+	.prose {
+		font-size: 1rem;
+		line-height: 1.8;
+	}
+	.prose :global(h2) {
+		font-size: 1.375rem;
+		margin: 2.5rem 0 0.75rem;
+		letter-spacing: -0.02em;
+		text-transform: none;
+		color: var(--text);
+	}
+	.prose :global(h3) {
+		font-size: 1.1rem;
+		margin: 1.75rem 0 0.5rem;
+		letter-spacing: -0.01em;
+		text-transform: none;
+	}
+	.prose :global(p) {
+		margin-bottom: 1.25em;
+	}
+	.prose :global(ul),
+	.prose :global(ol) {
+		margin-bottom: 1.25em;
+	}
+	.prose :global(a) {
+		color: var(--text);
+	}
+	.prose :global(img) {
+		width: 100%;
+		height: auto;
+		border-radius: 6px;
+		border: 1px solid var(--border);
+		margin: 1rem 0;
+	}
+	/* Vídeos: <video> nativo e iframes (YouTube, Vimeo) */
+	.prose :global(video) {
+		width: 100%;
+		border-radius: 6px;
+		border: 1px solid var(--border);
+		margin: 1rem 0;
+	}
+	.prose :global(iframe) {
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border-radius: 6px;
+		border: 1px solid var(--border);
+		margin: 1rem 0;
+	}
+
+	.project-footer {
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border);
+	}
+</style>

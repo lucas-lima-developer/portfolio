@@ -1,11 +1,8 @@
 ---
-import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -13,102 +10,113 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="pt-BR">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead
+			title="Blog — Lucas Lima"
+			description="Tudo que estou construindo, aprendendo e descobrindo."
+		/>
 	</head>
 	<body>
 		<Header />
 		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
+			<h1>Blog</h1>
+			<p class="subtitle">Tudo que estou construindo, aprendendo e descobrindo.</p>
+
+			<hr />
+
+			{
+				posts.length === 0 ? (
+					<p class="empty">Nenhum post ainda. Em breve.</p>
+				) : (
+					<ul class="post-list">
+						{posts.map((post) => (
+							<li class="post-item">
+								<a href={`/blog/${post.id}/`} class="post-link">
+									<div class="post-row">
+										<span class="post-title">{post.data.title}</span>
+										<span class="post-date">
+											{post.data.pubDate.toLocaleDateString('pt-BR', {
+												day: '2-digit',
+												month: 'short',
+												year: 'numeric',
+											})}
+										</span>
+									</div>
+									{post.data.description && (
+										<p class="post-desc">{post.data.description}</p>
 									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
 								</a>
 							</li>
-						))
-					}
-				</ul>
-			</section>
+						))}
+					</ul>
+				)
+			}
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	h1 {
+		font-size: 2rem;
+		letter-spacing: -0.03em;
+		margin-bottom: 0.5rem;
+	}
+	.subtitle {
+		color: var(--muted);
+		font-size: 0.9rem;
+		margin-bottom: 0;
+	}
+	.empty {
+		color: var(--muted);
+		font-size: 0.9rem;
+	}
+
+	.post-list {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		flex-direction: column;
+	}
+	.post-item {
+		border-bottom: 1px solid var(--border);
+	}
+	.post-item:last-child {
+		border-bottom: none;
+	}
+	.post-link {
+		display: block;
+		padding: 1.25rem 0;
+		text-decoration: none;
+		color: var(--text);
+		transition: opacity 0.15s;
+	}
+	.post-link:hover {
+		opacity: 0.75;
+		text-decoration: none;
+	}
+	.post-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 1rem;
+	}
+	.post-title {
+		font-size: 0.95rem;
+		font-weight: 500;
+	}
+	.post-date {
+		font-size: 0.775rem;
+		color: var(--muted);
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+	.post-desc {
+		margin: 0.35rem 0 0;
+		font-size: 0.85rem;
+		color: var(--muted);
+		line-height: 1.55;
+	}
+</style>

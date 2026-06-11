@@ -1,63 +1,385 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import Layout from '../layouts/BlogPost.astro';
+import { Image } from 'astro:assets';
+import lucasPhoto from '../assets/lucas-lima.jpg';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { EMAIL, GITHUB_URL, LINKEDIN_URL } from '../consts';
+
+const skills = [
+	{ label: 'Linguagens', items: ['TypeScript', 'JavaScript', 'Python'] },
+	{ label: 'Backend', items: ['Node.js', 'NestJS', 'Express'] },
+	{ label: 'Frontend', items: ['React', 'Next.js', 'React Native'] },
+	{ label: 'Banco de Dados', items: ['MySQL', 'PostgreSQL', 'MongoDB', 'Redis', 'ElasticSearch'] },
+	{
+		label: 'DevOps & Infra',
+		items: ['Docker', 'AWS', 'GitHub Actions', 'Nginx', 'Grafana', 'Prometheus'],
+	},
+	{ label: 'Ferramentas', items: ['Git', 'Jest', 'RabbitMQ', 'Swagger', 'Scrum'] },
+];
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage={AboutHeroImage}
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<BaseHead
+			title="Sobre — Lucas Lima"
+			description="Desenvolvedor Full Stack com foco em sistemas escaláveis e backend robusto."
+		/>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<!-- Profile header -->
+			<div class="profile">
+				<Image src={lucasPhoto} alt="Lucas Lima" width={80} height={80} class="avatar" />
+				<div class="profile-info">
+					<h1>Lucas Lima</h1>
+					<p class="subtitle">Desenvolvedor Full Stack · Salvador, BA</p>
+				</div>
+			</div>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+			<p class="bio">
+				Sou Desenvolvedor Full Stack com foco em Node.js, NestJS, Next.js, React e AWS. Trabalho
+				construindo sistemas que funcionam em escala real — hoje atuo como referência técnica na
+				Acesso Ponto Tech, onde lidero a equipe e sou responsável por toda a infraestrutura de
+				tecnologia. Já coloquei sistemas em produção que impactam 80 mil colaboradores com 800
+				integrações em tempo real.
+			</p>
+			<p class="bio">
+				Gosto de resolver problemas difíceis. Cada desafio é uma oportunidade de aprender algo novo.
+				Estou construindo minha trajetória com consistência, buscando me tornar um engenheiro de
+				referência e um líder que faz diferença nos times por onde passa.
+			</p>
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+			<hr />
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+			<section>
+				<h2>Experiência</h2>
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+				<div class="job">
+					<div class="job-header">
+						<div class="job-meta">
+							<span class="company">Acesso Ponto Tech</span>
+							<span class="job-title">Desenvolvedor Full Stack → Tech Lead</span>
+						</div>
+						<span class="period">Ago 2024 · Presente</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Viabilizei gestão de jornada para +80 mil colaboradores em 40 hospitais, integrando
+							800 terminais em tempo real com arquitetura escalável.
+						</li>
+						<li>
+							Reduzi custos de banco de dados em 90% ao projetar camada de cache distribuído com
+							Redis na AWS.
+						</li>
+						<li>
+							Liderei equipe de 4 desenvolvedores na refatoração crítica do software de ponto,
+							garantindo aprovação em processo licitatório de grande porte.
+						</li>
+						<li>
+							Otimizei busca de dados governamentais com Elasticsearch, reduzindo o tempo de
+							resposta de consultas complexas para milissegundos.
+						</li>
+						<li>
+							Estruturei infraestrutura na AWS (EC2, S3, RDS, DynamoDB) com deploy automatizado via
+							GitHub Actions em servidores VPS.
+						</li>
+					</ul>
+					<p class="stack">
+						NestJS · Next.js · React Native · MySQL · MongoDB · Redis · ElasticSearch · Docker · AWS
+					</p>
+				</div>
+
+				<div class="job">
+					<div class="job-header">
+						<div class="job-meta">
+							<span class="company">Mundiale</span>
+							<span class="job-title">Desenvolvedor Backend Node.js</span>
+						</div>
+						<span class="period">Abr 2022 · Mar 2024</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Desenvolvi e mantive a API principal do chatbot de crédito estudantil, servindo
+							centenas de milhares de estudantes em 500+ instituições de ensino.
+						</li>
+						<li>
+							Expandi cobertura de testes para 98%, atingindo nível A+ de qualidade com SonarQube.
+						</li>
+						<li>
+							Implementei observabilidade com Grafana, garantindo visibilidade em tempo real da
+							saúde do sistema em produção.
+						</li>
+					</ul>
+					<p class="stack">Node.js · Express · MongoDB · RabbitMQ · Jest · Grafana · Docker · AWS</p>
+				</div>
+
+				<div class="job">
+					<div class="job-header">
+						<div class="job-meta">
+							<span class="company">Arpen Bahia</span>
+							<span class="job-title">Desenvolvedor Full Stack</span>
+						</div>
+						<span class="period">Ago 2021 · Mar 2022</span>
+					</div>
+					<ul class="achievements">
+						<li>
+							Desenvolvi e mantive sistema de gestão de acervos dos registradores civis utilizado
+							nos cartórios de toda a Bahia.
+						</li>
+						<li>
+							Prestei suporte direto aos cartórios do estado, monitorando logs e corrigindo
+							problemas de forma ágil.
+						</li>
+					</ul>
+					<p class="stack">Laravel · Vue.js · MySQL · AWS</p>
+				</div>
+			</section>
+
+			<hr />
+
+			<section>
+				<h2>Formação</h2>
+				<div class="education">
+					<div class="edu-item">
+						<div>
+							<span class="edu-institution">FIAP</span>
+							<span class="edu-course">Pós-graduação · Front-end Engineering</span>
+						</div>
+						<span class="edu-period">2024 — 2025</span>
+					</div>
+					<div class="edu-item">
+						<div>
+							<span class="edu-institution">Universidade Salvador</span>
+							<span class="edu-course">Bacharelado · Ciência da Computação</span>
+						</div>
+						<span class="edu-period">2019 — 2024</span>
+					</div>
+				</div>
+			</section>
+
+			<hr />
+
+			<section>
+				<h2>Stack</h2>
+				<div class="skill-groups">
+					{
+						skills.map((group) => (
+							<div class="skill-group">
+								<span class="skill-label">{group.label}</span>
+								<div class="tags">
+									{group.items.map((item) => (
+										<span class="tag">{item}</span>
+									))}
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<hr />
+
+			<section class="contact">
+				<h2>Contato</h2>
+				<p>Aberto a conversas sobre projetos, oportunidades ou trocar ideia sobre tecnologia.</p>
+				<div class="contact-links">
+					<a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+					<a href={GITHUB_URL} target="_blank" rel="noopener">GitHub ↗</a>
+					<a href={LINKEDIN_URL} target="_blank" rel="noopener">LinkedIn ↗</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	/* Profile header */
+	.profile {
+		display: flex;
+		align-items: center;
+		gap: 1.25rem;
+		margin-bottom: 1.75rem;
+	}
+	.avatar {
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		object-fit: cover;
+		border: 2px solid var(--border);
+		flex-shrink: 0;
+	}
+	.profile-info h1 {
+		font-size: 1.5rem;
+		letter-spacing: -0.02em;
+		margin: 0 0 0.2rem;
+	}
+	.subtitle {
+		font-size: 0.825rem;
+		color: var(--muted);
+		margin: 0;
+	}
+
+	h2 {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--muted);
+		font-weight: 600;
+		margin-bottom: 1.5rem;
+	}
+	.bio {
+		max-width: 600px;
+		line-height: 1.75;
+		margin-bottom: 1rem;
+	}
+
+	/* Experience */
+	.job {
+		margin-bottom: 2.5rem;
+	}
+	.job-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1rem;
+		margin-bottom: 0.75rem;
+	}
+	.company {
+		display: block;
+		font-weight: 700;
+		font-size: 0.95rem;
+		margin-bottom: 0.15rem;
+	}
+	.job-title {
+		display: block;
+		font-size: 0.825rem;
+		color: var(--muted);
+	}
+	.period {
+		font-size: 0.775rem;
+		color: var(--muted);
+		white-space: nowrap;
+		flex-shrink: 0;
+		padding-top: 0.1rem;
+	}
+	.achievements {
+		margin: 0 0 0.75rem;
+		padding-left: 1.25rem;
+	}
+	.achievements li {
+		font-size: 0.875rem;
+		line-height: 1.65;
+		margin-bottom: 0.45rem;
+	}
+	.stack {
+		font-size: 0.75rem;
+		color: var(--dim);
+		margin: 0;
+	}
+
+	/* Education */
+	.education {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+	.edu-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+	.edu-institution {
+		display: block;
+		font-weight: 700;
+		font-size: 0.95rem;
+		margin-bottom: 0.1rem;
+	}
+	.edu-course {
+		display: block;
+		font-size: 0.825rem;
+		color: var(--muted);
+	}
+	.edu-period {
+		font-size: 0.775rem;
+		color: var(--muted);
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+
+	/* Skills */
+	.skill-groups {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.skill-group {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+	.skill-label {
+		font-size: 0.775rem;
+		color: var(--muted);
+		min-width: 110px;
+		flex-shrink: 0;
+		padding-top: 0.3rem;
+	}
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem;
+	}
+	.tag {
+		font-size: 0.775rem;
+		padding: 0.2rem 0.55rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 4px;
+		color: var(--text);
+	}
+
+	/* Contact */
+	.contact p {
+		font-size: 0.9rem;
+		color: var(--muted);
+		margin-bottom: 1rem;
+	}
+	.contact-links {
+		display: flex;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+	.contact-links a {
+		font-size: 0.875rem;
+		color: var(--muted);
+		text-decoration: none;
+		transition: color 0.15s;
+	}
+	.contact-links a:hover {
+		color: var(--text);
+	}
+
+	@media (max-width: 520px) {
+		.profile {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+		.job-header,
+		.edu-item {
+			flex-direction: column;
+			gap: 0.25rem;
+		}
+		.skill-group {
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+		.skill-label {
+			min-width: auto;
+		}
+	}
+</style>
