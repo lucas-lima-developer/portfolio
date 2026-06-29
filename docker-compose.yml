@@ -3,4 +3,4 @@ services:
     image: ghcr.io/${GITHUB_REPOSITORY}:latest
     restart: always
     ports:
-      - "80:80"
+      - "${APP_PORT}:80"
