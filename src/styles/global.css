@@ -27,9 +27,13 @@ body {
 	line-height: 1.75;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 }
 
 main {
+	flex: 1;
 	max-width: 680px;
 	margin: 0 auto;
 	padding: 4rem 1.5rem;
